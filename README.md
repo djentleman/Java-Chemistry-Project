@@ -16,9 +16,8 @@ implemented to rendering soon
 -'smart rendering', larger chemicals have a simpler
 render structure, as opposed to the full render, eg.
 
-..H
-H-c-H  --would render as--> CH4
-..H
+
+H-0-H  --would render as--> H20
 
 -a more advanced protein building system, now accpects
 amino acid instruction sets
