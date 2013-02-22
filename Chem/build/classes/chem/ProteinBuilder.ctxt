@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.params=
+comment0.target=ProteinBuilder()
+comment1.params=
+comment1.target=chem.Molecule\ buildNH2()
+comment2.params=mol
+comment2.target=chem.Molecule\ buildVariableGroupA(chem.Molecule)
+comment3.params=mol
+comment3.target=chem.Molecule\ buildVariableGroupV(chem.Molecule)
+comment4.params=mol
+comment4.target=chem.Molecule\ buildCOOH(chem.Molecule)
+comment5.params=
+comment5.target=void\ run()
+numComments=6
