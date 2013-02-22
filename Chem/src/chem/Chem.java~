@@ -396,8 +396,8 @@ public class Chem {
         
         //chem formation
         
-        Experiment exp = new Experiment();
-        exp.run();
+        //Experiment exp = new Experiment();
+        //exp.run();
         
         
         
@@ -422,15 +422,15 @@ public class Chem {
         
         // Protein building
         
-       // ArrayList<String> ins = new ArrayList<String>(0);
-       // ins.add("V");
-       // ins.add("A");
-       // ins.add("V");
-       // ins.add("A");
-       // ins.add("V");
-       // ins.add("A");
-       // ins.add("V");
-       // ProteinBuilder p = new ProteinBuilder(ins);
+        ArrayList<String> ins = new ArrayList<String>(0);
+        ins.add("V");
+        ins.add("A");
+        ins.add("V");
+        ins.add("A");
+        ins.add("V");
+        ins.add("A");
+        ins.add("V");
+        ProteinBuilder p = new ProteinBuilder(ins);
         
         // MAKE MOLECULE ID AN ATTRIBUTE OF ATOM
         

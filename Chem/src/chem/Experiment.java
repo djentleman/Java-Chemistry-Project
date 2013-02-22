@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package src.chem;
+package chem;
 
 /**
  *
@@ -68,7 +68,9 @@ public class Experiment {
         int j = 0;
         while (j < 20) {
             //all molecule cores are carbon
-            molecules.add(j, new Molecule(new Carbon(), "Experiment" + j));
+            Molecule newM = new Molecule(new Carbon(), "Experiment" + j);
+            newM.setId(j);
+            molecules.add(j, newM);
             j++;
         }
 

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package src.chem;
+package chem;
 
 /**
  *
@@ -13,21 +13,94 @@ import java.util.*;
 public abstract class Atom {
     // specific types of atom will inherit atom
 
+    protected int id; // unique identification number used when part of a larger system
+    protected int group; // higher level identification
     protected int freeElectrons;
     protected int atomicNumber;
     protected int charge;
+    protected Atom parent; // the parent of this node, defaulted to null
     protected String symbol;
     protected ArrayList<Atom> cBondList; //covalant bonds
     protected ArrayList<Atom> dBondList; //double bonds
     protected ArrayList<Atom> iBondList; //ionic bonds
 
     public Atom() {
+        id = -1;
         cBondList = new ArrayList<Atom>(0);
         dBondList = new ArrayList<Atom>(0);
         iBondList = new ArrayList<Atom>(0);
         charge = 0;
+        group = -1;
+        parent = null;
     } //default contructor
     //other constructors will not be needed, as each atom defines itself
+
+    public void setParent(Atom parent){
+        this.parent = parent;
+    }
+    
+    public Atom getParent(){
+        return parent;
+    }
+    
+    public void setGroup(int grp){
+        group = grp;
+    }
+    
+    public int getGroup(){
+        return group;
+    }
+    
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public boolean unBond(Atom toDelete) {
+
+        boolean atomFound = false;
+
+        ArrayList<Atom> temp = new ArrayList<Atom>(0);
+        for (Atom current : cBondList) {
+            if (current.getId() != toDelete.getId()) {
+                temp.add(current);
+            } else {
+                atomFound = true;
+            }
+        }
+        cBondList = temp;
+
+        ArrayList<Atom> temp2 = new ArrayList<Atom>(0);
+        for (Atom current : dBondList) {
+            if (current.getId() != toDelete.getId()) {
+                temp2.add(current);
+            } else {
+                atomFound = true;
+            }
+        }
+        dBondList = temp2;
+
+        ArrayList<Atom> temp3 = new ArrayList<Atom>(0);
+        for (Atom current : iBondList) {
+            if (current.getId() != toDelete.getId()) {
+                temp3.add(current);
+            } else {
+                atomFound = true;
+            }
+        }
+        iBondList = temp3;
+
+        if (atomFound) {
+            freeElectrons++;
+            // consider refractoring this statement for negative ionic bonding
+        }
+        
+        return atomFound;
+
+    }
 
     public int getFreeElectrons() {
         return freeElectrons;
@@ -36,20 +109,20 @@ public abstract class Atom {
     public int getAtomicNumber() {
         return atomicNumber;
     }
-    
-    public ArrayList<Atom> getCBondList(){
+
+    public ArrayList<Atom> getCBondList() {
         return cBondList;
     }
-    
-    public ArrayList<Atom> getDBondList(){
+
+    public ArrayList<Atom> getDBondList() {
         return dBondList;
     }
-    
-    public ArrayList<Atom> getIBondList(){
+
+    public ArrayList<Atom> getIBondList() {
         return iBondList;
     }
-    
-    public int getAdjacent(){
+
+    public int getAdjacent() {
         // get number of adjacent atoms
         // rendering only works for covalent at the moment
         return cBondList.size();
@@ -133,7 +206,7 @@ public abstract class Atom {
         }
         System.out.println("can't ionic bond");
         return false;
-        
+
 
     }
 
@@ -162,11 +235,18 @@ public abstract class Atom {
     public void printOut() {
         //gets overridden
         //below code gets called by subclasses
+        System.out.println("Unique ID: " + group + "." + id);
         System.out.println("Symbol: " + symbol);
         System.out.println("Atomic Number:" + atomicNumber);
         System.out.println("Free Electrons:" + freeElectrons);
         System.out.println("Charge: " + charge);
         System.out.println("2D Bond Angle: " + get2dBondAngle());
+        if (parent != null){
+            System.out.println("Parent: " + parent.getSymbol());
+        }
+        else {
+            System.out.println("Parent: null");
+        }
 
         int len = cBondList.size();
         System.out.print("Covalant Bonded Atoms: ");
