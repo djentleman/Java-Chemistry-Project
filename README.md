@@ -1,9 +1,20 @@
 Java-Chemistry-Project
 ======================
 
-> Current Version 1.1
+> Current Version 1.2
 
 CHANGELOG:
+
+---------------------------------------------------
+v1.2
+
+--changes from v1.1--
+
+- Java Swing GUI implemented
+
+- hydrogen 'auto fill'
+
+- Chem now runs a GUI
 
 ---------------------------------------------------
 v1.1
