@@ -35,6 +35,9 @@ public class Chem {
         water.printOut();
 
         System.out.println("--------------------------");
+        
+        GUI gui = new GUI(water);
+        gui.main(null);
     }
 
     private static void module2() {
@@ -158,9 +161,12 @@ public class Chem {
         System.out.println();
         co2.printOut();
         
-        Render r = new Render(co2);
+        //Render r = new Render(co2);
         
-        r.run();
+        //r.run();
+        
+        GUI gui = new GUI(co2);
+        gui.main(null);
 
 
 
@@ -184,7 +190,7 @@ public class Chem {
         Atom hy5 = new Hydrogen();
 
 
-        Molecule alanine = new Molecule(ni1, "basic amino acid structure");
+        Molecule alanine = new Molecule(ni1, "Alanine");
 
         //nitrogen core
 
@@ -217,9 +223,12 @@ public class Chem {
 
         alanine.printOut();
         
-        Render r = new Render(alanine);
+        // r = new Render(alanine);
         
-        r.run();
+        //r.run();
+        
+        GUI gui = new GUI(alanine);
+        gui.main(null);
 
     }
 
@@ -396,8 +405,8 @@ public class Chem {
         
         //chem formation
         
-        Experiment exp = new Experiment();
-        exp.run();
+        //Experiment exp = new Experiment();
+        //exp.run();
         
         
         
@@ -422,17 +431,23 @@ public class Chem {
         
         // Protein building
         
-       // ArrayList<String> ins = new ArrayList<String>(0);
-       // ins.add("V");
-       // ins.add("A");
-       // ins.add("V");
-       // ins.add("A");
-       // ins.add("V");
-       // ins.add("A");
-       // ins.add("V");
-       // ProteinBuilder p = new ProteinBuilder(ins);
+        //ArrayList<String> ins = new ArrayList<String>(0);
+        //ins.add("V");
+        //ins.add("A");
+        //ins.add("V");
+        //ins.add("A");
+        //ins.add("V");
+        //ins.add("A");
+        //ins.add("V");
+        //ProteinBuilder p = new ProteinBuilder(ins);
         
         // MAKE MOLECULE ID AN ATTRIBUTE OF ATOM
+        
+        
+        // ACTUAL CODE FOR PROGRAM LAUNCH
+        
+        GUI gui = new GUI();
+        gui.main(null);
         
         
         

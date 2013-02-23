@@ -19,6 +19,7 @@ public class Molecule {
     private int id; // unique molecule ID number
 
     public Molecule() {
+        atoms = new ArrayList<Atom>(); // init
         //default constructor
     }
 
@@ -62,6 +63,10 @@ public class Molecule {
 
     public void setId(int id) {
         this.id = id;
+    }
+    
+    public int getNumberOfAtoms() {
+        return size; // returns number of atoms
     }
 
     public int getSize() { //returns the number of protons

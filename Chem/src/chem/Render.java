@@ -24,10 +24,16 @@ public class Render extends JPanel {
     public Render(Molecule molecule) // set up graphics window
     {
         super();
-        setBackground(Color.WHITE);
+        //setBackground(Color.WHITE);
         this.molecule = molecule;
+        
+
+        
     }
 
+
+    
+    
     public void paintComponent(Graphics g) // draw graphics in the panel
     {
         int width = getWidth();             // width of window in pixels
@@ -40,11 +46,6 @@ public class Render extends JPanel {
 
         // Drawing code goes here
 
-        //covalent rendering code now bug free :D
-
-        // next step, double bonds
-
-
 
         ArrayList<Atom> atoms = molecule.getAtoms();
         int len = atoms.size();
@@ -54,8 +55,8 @@ public class Render extends JPanel {
 
         Atom core = atoms.get(0);
 
-        g.drawString(molecule.getName(), 250, 30);
-        g.drawString("Formula: " + molecule.calculateFormula(), 250, 60);
+        //g.drawString(molecule.getName(), 250, 30);
+        //g.drawString("Formula: " + molecule.calculateFormula(), 250, 60);
 
         if (molecule.getSize() < 21) { // molecule is small, 20 protons or less
             drawMolecule(g, core, cX, cY, true, "none", false);
@@ -894,8 +895,6 @@ public class Render extends JPanel {
 
         application.setSize(500, 500);         // window is 500 pixels wide, 500 high
         application.setVisible(true);
-
-
 
     }
 }
