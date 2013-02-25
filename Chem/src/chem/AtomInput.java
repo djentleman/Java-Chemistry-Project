@@ -37,7 +37,7 @@ public class AtomInput extends javax.swing.JFrame {
         dynamicWarning = new javax.swing.JLabel();
         cancel = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Atom Input");
 
         title.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
