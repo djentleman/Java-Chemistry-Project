@@ -58,7 +58,7 @@ public class Render extends JPanel {
         //g.drawString(molecule.getName(), 250, 30);
         //g.drawString("Formula: " + molecule.calculateFormula(), 250, 60);
 
-        if (molecule.getSize() < 21) { // molecule is small, 20 protons or less
+        if (molecule.getNumberOfAtoms() < 21) { // molecule is small, 20 atoms or less
             drawMolecule(g, core, cX, cY, true, "none", false);
         } else {
             // molecule is big

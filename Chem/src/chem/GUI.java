@@ -5,6 +5,7 @@
 package chem;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 /**
  *
@@ -133,12 +134,14 @@ public class GUI extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         manualRefresh = new javax.swing.JMenuItem();
         edit = new javax.swing.JMenu();
+        deleteLast = new javax.swing.JMenuItem();
         molecule = new javax.swing.JMenu();
         addAtom = new javax.swing.JMenuItem();
         autoFill = new javax.swing.JMenu();
         autoHydrogen = new javax.swing.JMenuItem();
         autoFluorine = new javax.swing.JMenuItem();
         autoChlorine = new javax.swing.JMenuItem();
+        buildInfo = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Chemical Render System");
@@ -260,6 +263,16 @@ public class GUI extends javax.swing.JFrame {
         menuBar.add(file);
 
         edit.setText("Edit");
+
+        deleteLast.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
+        deleteLast.setText("Remove Last Atom");
+        deleteLast.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteLastActionPerformed(evt);
+            }
+        });
+        edit.add(deleteLast);
+
         menuBar.add(edit);
 
         molecule.setText("Molecule");
@@ -305,6 +318,9 @@ public class GUI extends javax.swing.JFrame {
         molecule.add(autoFill);
 
         menuBar.add(molecule);
+
+        buildInfo.setText("Build Info");
+        menuBar.add(buildInfo);
 
         setJMenuBar(menuBar);
 
@@ -376,6 +392,15 @@ public class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_autoFluorineActionPerformed
 
+    private void deleteLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteLastActionPerformed
+        if (mol.getNumberOfAtoms() > 1){
+            ArrayList<Atom> atoms = mol.getAtoms();
+            Atom toRemove = atoms.get(atoms.size() - 1);
+            mol.unBondAtom(toRemove);
+            refresh();
+        }
+    }//GEN-LAST:event_deleteLastActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -416,6 +441,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JMenu autoFill;
     private javax.swing.JMenuItem autoFluorine;
     private javax.swing.JMenuItem autoHydrogen;
+    private javax.swing.JMenu buildInfo;
+    private javax.swing.JMenuItem deleteLast;
     private javax.swing.JMenu edit;
     private javax.swing.JMenu file;
     private javax.swing.JPanel infoPanel;

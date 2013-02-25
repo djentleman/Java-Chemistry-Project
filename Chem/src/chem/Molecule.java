@@ -37,6 +37,10 @@ public class Molecule {
     public ArrayList<Atom> getAtoms() {
         return atoms;
     }
+    
+    public void setAtoms(ArrayList<Atom> atoms){
+        this.atoms = atoms;
+    }
 
     public Atom getAtom(int index) {
         return atoms.get(index);
