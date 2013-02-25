@@ -33,8 +33,14 @@ public class GUI extends javax.swing.JFrame {
         refresh();
     }
 
-    public void addToMol(Atom atom) {
-        mol.covalentBond(atom);
+    public void addToMol(Atom atom, String bondType) {
+        if (bondType.equals("Covalent")) {
+            mol.covalentBond(atom);
+        } else if (bondType.equals("Double")){
+            mol.doubleBond(atom);
+        } else {
+            mol.ionicBond(atom);
+        }
         refresh();
     }
 

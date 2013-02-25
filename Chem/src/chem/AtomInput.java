@@ -36,6 +36,8 @@ public class AtomInput extends javax.swing.JFrame {
         submit = new javax.swing.JButton();
         dynamicWarning = new javax.swing.JLabel();
         cancel = new javax.swing.JButton();
+        lblBondType = new javax.swing.JLabel();
+        bondType = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Atom Input");
@@ -46,7 +48,12 @@ public class AtomInput extends javax.swing.JFrame {
 
         lblType.setText("Atom Type:");
 
-        atomType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Carbon", "Chlorine", "Flourine", "Helium", "Hydrogen", "Lithium", "Nitrogen", "Oxygen", "Sodium" }));
+        atomType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Carbon", "Chlorine", "Fluorine", "Helium", "Hydrogen", "Lithium", "Nitrogen", "Oxygen", "Sodium" }));
+        atomType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atomTypeActionPerformed(evt);
+            }
+        });
 
         submit.setText("Submit");
         submit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -67,6 +74,10 @@ public class AtomInput extends javax.swing.JFrame {
             }
         });
 
+        lblBondType.setText("Bond Type:");
+
+        bondType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Covalent", "Double", "Ionic" }));
+
         javax.swing.GroupLayout attributeWrapLayout = new javax.swing.GroupLayout(attributeWrap);
         attributeWrap.setLayout(attributeWrapLayout);
         attributeWrapLayout.setHorizontalGroup(
@@ -74,18 +85,22 @@ public class AtomInput extends javax.swing.JFrame {
             .addGroup(attributeWrapLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(attributeWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(attributeWrapLayout.createSequentialGroup()
-                        .addComponent(lblType)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                        .addComponent(atomType, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, attributeWrapLayout.createSequentialGroup()
                         .addGroup(attributeWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(dynamicWarning, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(attributeWrapLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGap(0, 63, Short.MAX_VALUE)
                                 .addComponent(cancel)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(submit)))
+                        .addComponent(submit))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, attributeWrapLayout.createSequentialGroup()
+                        .addGroup(attributeWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblType)
+                            .addComponent(lblBondType))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(attributeWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(atomType, 0, 100, Short.MAX_VALUE)
+                            .addComponent(bondType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         attributeWrapLayout.setVerticalGroup(
@@ -95,9 +110,13 @@ public class AtomInput extends javax.swing.JFrame {
                 .addGroup(attributeWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblType)
                     .addComponent(atomType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(attributeWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBondType)
+                    .addComponent(bondType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dynamicWarning, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addGroup(attributeWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(submit)
                     .addComponent(cancel))
@@ -132,38 +151,67 @@ public class AtomInput extends javax.swing.JFrame {
 
     private void submitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitMouseClicked
         String core = String.valueOf(atomType.getSelectedItem());
-        
-        Atom atom = new Hydrogen();
-        
-          if (core.equals("Carbon")) {
+        String bondStr = String.valueOf(bondType.getSelectedItem());
+
+        Atom atom = new Hydrogen(); // failsafe
+
+        if (core.equals("Carbon")) {
             atom = new Carbon();
         } else if (core.equals("Chlorine")) {
             atom = new Chlorine();
         } else if (core.equals("Fluorine")) {
             atom = new Fluorine();
+        } else if (core.equals("Helium")) {
+            atom = new Helium();
         } else if (core.equals("Hydrogen")) {
             atom = new Hydrogen();
         } else if (core.equals("Lithium")) {
             atom = new Lithium();
         } else if (core.equals("Nitrogen")) {
             atom = new Nitrogen();
-        } else {
+        } else if (core.equals("Oxygen")) {
             atom = new Oxygen();
+        } else if (core.equals("Sodium")) {
+            atom = new Sodium();
         }
-        
+
+
         Molecule mol = gui.getMol();
-        if (mol.canCovalantBond(atom)){
-            gui.addToMol(atom);
-            this.dispose(); // close window
+
+        if (bondStr.equals("Covalent")) {
+            if (mol.canCovalantBond(atom)) {
+                gui.addToMol(atom, bondStr);
+                this.dispose(); // close window
+            } else {
+                dynamicWarning.setText("Cannot Covalent Bond");
+            }
+        } else if (bondStr.equals("Double")){
+            if (mol.canDoubleBond(atom)) {
+                gui.addToMol(atom, bondStr);
+                this.dispose(); // close window
+            } else {
+                dynamicWarning.setText("Cannot Double Bond");
+            }
+        } else {
+            
+            if (mol.canIonicBond(atom)) {
+                gui.addToMol(atom, bondStr);
+                this.dispose(); // close window
+            } else {
+                dynamicWarning.setText("Cannot Ionic Bond");
+            }
         }
-        else {
-            dynamicWarning.setText("Cannot Covalent Bond");
-        }
+
+
     }//GEN-LAST:event_submitMouseClicked
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
         this.dispose();
     }//GEN-LAST:event_cancelActionPerformed
+
+    private void atomTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atomTypeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_atomTypeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,8 +250,10 @@ public class AtomInput extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox atomType;
     private javax.swing.JPanel attributeWrap;
+    private javax.swing.JComboBox bondType;
     private javax.swing.JButton cancel;
     private javax.swing.JLabel dynamicWarning;
+    private javax.swing.JLabel lblBondType;
     private javax.swing.JLabel lblType;
     private javax.swing.JButton submit;
     private javax.swing.JLabel title;
