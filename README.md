@@ -6,13 +6,29 @@ Java-Chemistry-Project
 CHANGELOG:
 
 ---------------------------------------------------
+
+INDEV
+
+--changes from v1.2--
+
+- able to view changelog
+
+- able to view build info
+
+- on launch bug fix
+
+- changes made to 'smart render', a molecule must contain 20 atoms in order to be rendered in shorthand
+
+- able to delete the last added atom from the molecule
+
+---------------------------------------------------
 v1.2
 
 --changes from v1.1--
 
-- Java Swing GUI implemented
+- Java Swing GUI implemented!!!
 
-- hydrogen 'auto fill'
+- hydrogen, fluorine, chlorone 'auto fill' feature
 
 - Chem now runs a GUI
 
