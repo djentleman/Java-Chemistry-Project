@@ -445,9 +445,12 @@ public class Chem {
         
         
         // ACTUAL CODE FOR PROGRAM LAUNCH
-        
-        GUI gui = new GUI();
-        gui.main(null);
+        try{
+            GUI gui = new GUI();
+            gui.main(null);
+        } catch (Exception e){
+            System.out.println("Something Went Wrong");
+        }
         
         
         

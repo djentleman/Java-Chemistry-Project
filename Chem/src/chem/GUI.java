@@ -25,10 +25,10 @@ public class GUI extends javax.swing.JFrame {
     }
 
     public GUI() {
-        this.mol = new Molecule(new Hydrogen(), "Empty");
+        this.mol = new Molecule(new Hydrogen(), "None");
         initComponents();
-        MoleculeInput moleIn = new MoleculeInput(this); // launches before main GUI can run
-        moleIn.main(null);
+        //MoleculeInput moleIn = new MoleculeInput(this); // launches before main GUI can run
+        //moleIn.main(null);
 
         refresh();
     }
@@ -142,6 +142,8 @@ public class GUI extends javax.swing.JFrame {
         autoFluorine = new javax.swing.JMenuItem();
         autoChlorine = new javax.swing.JMenuItem();
         buildInfo = new javax.swing.JMenu();
+        showBuildInfo = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Chemical Render System");
@@ -320,6 +322,28 @@ public class GUI extends javax.swing.JFrame {
         menuBar.add(molecule);
 
         buildInfo.setText("Build Info");
+        buildInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buildInfoActionPerformed(evt);
+            }
+        });
+
+        showBuildInfo.setText("Show Build Info");
+        showBuildInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showBuildInfoActionPerformed(evt);
+            }
+        });
+        buildInfo.add(showBuildInfo);
+
+        jMenuItem1.setText("Show Changelog");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        buildInfo.add(jMenuItem1);
+
         menuBar.add(buildInfo);
 
         setJMenuBar(menuBar);
@@ -393,13 +417,26 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_autoFluorineActionPerformed
 
     private void deleteLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteLastActionPerformed
-        if (mol.getNumberOfAtoms() > 1){
+        if (mol.getNumberOfAtoms() > 1) {
             ArrayList<Atom> atoms = mol.getAtoms();
             Atom toRemove = atoms.get(atoms.size() - 1);
             mol.unBondAtom(toRemove);
             refresh();
         }
     }//GEN-LAST:event_deleteLastActionPerformed
+
+    private void buildInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buildInfoActionPerformed
+    }//GEN-LAST:event_buildInfoActionPerformed
+
+    private void showBuildInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showBuildInfoActionPerformed
+        BuildInfo bi = new BuildInfo();
+        bi.main(null);
+    }//GEN-LAST:event_showBuildInfoActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        Changelog cl = new Changelog();
+        cl.main(null);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -431,7 +468,7 @@ public class GUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GUI(mol).setVisible(true);
+                new GUI().setVisible(true);
             }
         });
     }
@@ -446,6 +483,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JMenu edit;
     private javax.swing.JMenu file;
     private javax.swing.JPanel infoPanel;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lblFormula;
     private javax.swing.JLabel lblFreeElc;
@@ -463,6 +501,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JMenu molecule;
     private javax.swing.JMenuItem newMolecule;
     private javax.swing.JPanel render;
+    private javax.swing.JMenuItem showBuildInfo;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 }
