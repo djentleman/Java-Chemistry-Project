@@ -136,12 +136,14 @@ public class GUI extends javax.swing.JFrame {
         molFree = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         file = new javax.swing.JMenu();
-        newMolecule = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        newProject = new javax.swing.JMenuItem();
         manualRefresh = new javax.swing.JMenuItem();
         edit = new javax.swing.JMenu();
         deleteLast = new javax.swing.JMenuItem();
         molecule = new javax.swing.JMenu();
+        newMolecule = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
         addAtom = new javax.swing.JMenuItem();
         autoFill = new javax.swing.JMenu();
         autoHydrogen = new javax.swing.JMenuItem();
@@ -248,16 +250,11 @@ public class GUI extends javax.swing.JFrame {
         );
 
         file.setText("File");
-
-        newMolecule.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
-        newMolecule.setText("New");
-        newMolecule.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newMoleculeActionPerformed(evt);
-            }
-        });
-        file.add(newMolecule);
         file.add(jSeparator1);
+
+        newProject.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        newProject.setText("New Project");
+        file.add(newProject);
 
         manualRefresh.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         manualRefresh.setText("Refresh");
@@ -284,6 +281,16 @@ public class GUI extends javax.swing.JFrame {
         menuBar.add(edit);
 
         molecule.setText("Molecule");
+
+        newMolecule.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
+        newMolecule.setText("New Molecule");
+        newMolecule.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newMoleculeActionPerformed(evt);
+            }
+        });
+        molecule.add(newMolecule);
+        molecule.add(jSeparator2);
 
         addAtom.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
         addAtom.setText("Add Atom");
@@ -491,6 +498,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel infoPanel;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JLabel lblFormula;
     private javax.swing.JLabel lblFreeElc;
     private javax.swing.JLabel lblMolname;
@@ -506,6 +514,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel molProt;
     private javax.swing.JMenu molecule;
     private javax.swing.JMenuItem newMolecule;
+    private javax.swing.JMenuItem newProject;
     private javax.swing.JPanel render;
     private javax.swing.JMenuItem showBuildInfo;
     private javax.swing.JLabel title;
