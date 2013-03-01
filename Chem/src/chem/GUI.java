@@ -36,7 +36,7 @@ public class GUI extends javax.swing.JFrame {
     public void addToMol(Atom atom, String bondType) {
         if (bondType.equals("Covalent")) {
             mol.covalentBond(atom);
-        } else if (bondType.equals("Double")){
+        } else if (bondType.equals("Double")) {
             mol.doubleBond(atom);
         } else {
             mol.ionicBond(atom);
@@ -57,25 +57,16 @@ public class GUI extends javax.swing.JFrame {
         render.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         render.setPreferredSize(new java.awt.Dimension(500, 500));
 
-        javax.swing.GroupLayout renderLayout = new javax.swing.GroupLayout(render);
-        render.setLayout(renderLayout);
-        renderLayout.setHorizontalGroup(
-                renderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGap(0, 494, Short.MAX_VALUE));
-        renderLayout.setVerticalGroup(
-                renderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGap(0, 494, Short.MAX_VALUE));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(infoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(infoWrap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(render, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addComponent(title, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap()));
@@ -83,10 +74,13 @@ public class GUI extends javax.swing.JFrame {
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(render, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(infoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createSequentialGroup()
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(render, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(infoWrap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap()));
 
 
@@ -122,7 +116,14 @@ public class GUI extends javax.swing.JFrame {
 
         render = new Render(mol);
         title = new javax.swing.JLabel();
-        infoPanel = new javax.swing.JPanel();
+        infoWrap = new javax.swing.JPanel();
+        projectInfoWrap = new javax.swing.JPanel();
+        lnlProjInfo = new javax.swing.JLabel();
+        lblProjName = new javax.swing.JLabel();
+        lblFP = new javax.swing.JLabel();
+        projectName = new javax.swing.JLabel();
+        filePath = new javax.swing.JLabel();
+        moleculeInfoWrap = new javax.swing.JPanel();
         lblinfo = new javax.swing.JLabel();
         lblMolname = new javax.swing.JLabel();
         molName = new javax.swing.JLabel();
@@ -136,11 +137,13 @@ public class GUI extends javax.swing.JFrame {
         molFree = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         file = new javax.swing.JMenu();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         newProject = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         manualRefresh = new javax.swing.JMenuItem();
         edit = new javax.swing.JMenu();
         deleteLast = new javax.swing.JMenuItem();
+        project = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
         molecule = new javax.swing.JMenu();
         newMolecule = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
@@ -173,11 +176,58 @@ public class GUI extends javax.swing.JFrame {
         title.setFont(new java.awt.Font("Utsaah", 2, 24)); // NOI18N
         title.setText("Chemical Render System");
 
-        infoPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder(null, new java.awt.Color(102, 102, 102)));
+        projectInfoWrap.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        projectInfoWrap.setOpaque(false);
+        projectInfoWrap.setPreferredSize(new java.awt.Dimension(255, 167));
+
+        lnlProjInfo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lnlProjInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lnlProjInfo.setText("Project Info");
+
+        lblProjName.setText("Project Name:");
+
+        lblFP.setText("File Path:");
+
+        projectName.setText("-");
+
+        filePath.setText("-");
+
+        javax.swing.GroupLayout projectInfoWrapLayout = new javax.swing.GroupLayout(projectInfoWrap);
+        projectInfoWrap.setLayout(projectInfoWrapLayout);
+        projectInfoWrapLayout.setHorizontalGroup(
+            projectInfoWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lnlProjInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(projectInfoWrapLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(projectInfoWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblProjName)
+                    .addComponent(lblFP))
+                .addGap(41, 41, 41)
+                .addGroup(projectInfoWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(projectName, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
+                    .addComponent(filePath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        projectInfoWrapLayout.setVerticalGroup(
+            projectInfoWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(projectInfoWrapLayout.createSequentialGroup()
+                .addComponent(lnlProjInfo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(projectInfoWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblProjName)
+                    .addComponent(projectName))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(projectInfoWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblFP)
+                    .addComponent(filePath))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        moleculeInfoWrap.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         lblinfo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblinfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblinfo.setText("Info Panel");
+        lblinfo.setText("Molecule Info");
 
         lblMolname.setText("Molecule Name:");
 
@@ -199,62 +249,88 @@ public class GUI extends javax.swing.JFrame {
 
         molFree.setText("-");
 
-        javax.swing.GroupLayout infoPanelLayout = new javax.swing.GroupLayout(infoPanel);
-        infoPanel.setLayout(infoPanelLayout);
-        infoPanelLayout.setHorizontalGroup(
-            infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout moleculeInfoWrapLayout = new javax.swing.GroupLayout(moleculeInfoWrap);
+        moleculeInfoWrap.setLayout(moleculeInfoWrapLayout);
+        moleculeInfoWrapLayout.setHorizontalGroup(
+            moleculeInfoWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblinfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(infoPanelLayout.createSequentialGroup()
+            .addGroup(moleculeInfoWrapLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(moleculeInfoWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblMolname)
                     .addComponent(lblFormula)
                     .addComponent(lblnoofAtom)
                     .addComponent(lblnoofProt)
                     .addComponent(lblFreeElc))
                 .addGap(26, 26, 26)
-                .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(moleculeInfoWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(molFree, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(moleculeInfoWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(molProt, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(molFormula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(molAtoms, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(molName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
-        infoPanelLayout.setVerticalGroup(
-            infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(infoPanelLayout.createSequentialGroup()
-                .addComponent(lblinfo)
+        moleculeInfoWrapLayout.setVerticalGroup(
+            moleculeInfoWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(moleculeInfoWrapLayout.createSequentialGroup()
+                .addComponent(lblinfo, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(moleculeInfoWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblMolname)
                     .addComponent(molName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(moleculeInfoWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblFormula)
                     .addComponent(molFormula))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(moleculeInfoWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblnoofAtom)
                     .addComponent(molAtoms))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(moleculeInfoWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblnoofProt)
                     .addComponent(molProt))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(moleculeInfoWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblFreeElc)
                     .addComponent(molFree, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 15, Short.MAX_VALUE))
         );
 
+        javax.swing.GroupLayout infoWrapLayout = new javax.swing.GroupLayout(infoWrap);
+        infoWrap.setLayout(infoWrapLayout);
+        infoWrapLayout.setHorizontalGroup(
+            infoWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(infoWrapLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(infoWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(projectInfoWrap, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                    .addComponent(moleculeInfoWrap, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        infoWrapLayout.setVerticalGroup(
+            infoWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(infoWrapLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(projectInfoWrap, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(moleculeInfoWrap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         file.setText("File");
-        file.add(jSeparator1);
 
         newProject.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         newProject.setText("New Project");
+        newProject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newProjectActionPerformed(evt);
+            }
+        });
         file.add(newProject);
+        file.add(jSeparator1);
 
         manualRefresh.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         manualRefresh.setText("Refresh");
@@ -279,6 +355,14 @@ public class GUI extends javax.swing.JFrame {
         edit.add(deleteLast);
 
         menuBar.add(edit);
+
+        project.setText("Project");
+
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem2.setText("Change Current Molecule");
+        project.add(jMenuItem2);
+
+        menuBar.add(project);
 
         molecule.setText("Molecule");
 
@@ -366,11 +450,11 @@ public class GUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(infoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                        .addComponent(infoWrap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(render, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(title, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
@@ -379,10 +463,13 @@ public class GUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(render, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(infoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(render, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(infoWrap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -451,6 +538,11 @@ public class GUI extends javax.swing.JFrame {
         cl.main(null);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void newProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newProjectActionPerformed
+        NewProject np = new NewProject();
+        np.main(null);
+    }//GEN-LAST:event_newProjectActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -495,16 +587,21 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem deleteLast;
     private javax.swing.JMenu edit;
     private javax.swing.JMenu file;
-    private javax.swing.JPanel infoPanel;
+    private javax.swing.JLabel filePath;
+    private javax.swing.JPanel infoWrap;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JLabel lblFP;
     private javax.swing.JLabel lblFormula;
     private javax.swing.JLabel lblFreeElc;
     private javax.swing.JLabel lblMolname;
+    private javax.swing.JLabel lblProjName;
     private javax.swing.JLabel lblinfo;
     private javax.swing.JLabel lblnoofAtom;
     private javax.swing.JLabel lblnoofProt;
+    private javax.swing.JLabel lnlProjInfo;
     private javax.swing.JMenuItem manualRefresh;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JLabel molAtoms;
@@ -513,8 +610,12 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel molName;
     private javax.swing.JLabel molProt;
     private javax.swing.JMenu molecule;
+    private javax.swing.JPanel moleculeInfoWrap;
     private javax.swing.JMenuItem newMolecule;
     private javax.swing.JMenuItem newProject;
+    private javax.swing.JMenu project;
+    private javax.swing.JPanel projectInfoWrap;
+    private javax.swing.JLabel projectName;
     private javax.swing.JPanel render;
     private javax.swing.JMenuItem showBuildInfo;
     private javax.swing.JLabel title;
