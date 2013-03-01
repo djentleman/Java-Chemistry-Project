@@ -37,4 +37,28 @@ public class Project {
         this.filePath = "C:/Program Files/ChemRender/"; // default filePath
     }
     
+    public Molecule getCurrentMol(){
+        return this.currentMol;
+    }
+    
+    public void addMol(Molecule mol){
+        molecules.add(mol);
+        currentMol = mol;
+    }
+    
+    public String getName(){
+        return name;
+    }
+    
+    public void setName(String name){
+        this.name = name;
+    }
+    
+    public String getFilePath(){
+        return filePath;
+    }
+    
+    public void setFilePath(String filePath){
+        this.filePath = filePath;
+    }
 }

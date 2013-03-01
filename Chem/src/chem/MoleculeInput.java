@@ -162,7 +162,7 @@ public class MoleculeInput extends javax.swing.JFrame {
         
         Molecule mol = new Molecule(atom, name);
         
-        gui.setMol(mol); // set molecule
+        gui.addMol(mol); // add molecule
         
         this.dispose(); // end input
         

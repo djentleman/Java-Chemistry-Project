@@ -16,16 +16,16 @@ public class GUI extends javax.swing.JFrame {
     /**
      * Creates new form GUI
      */
-    private static Molecule mol;
+    private static Project project;
 
-    public GUI(Molecule mol) {
-        this.mol = mol;
+    public GUI(Project project) {
+        this.project = project;
         initComponents();
         this.setBackground(Color.white);
     }
 
     public GUI() {
-        this.mol = new Molecule(new Hydrogen(), "None");
+        this.project = new Project(new Molecule(new Hydrogen(), "Empty"), "Empty");
         initComponents();
         //MoleculeInput moleIn = new MoleculeInput(this); // launches before main GUI can run
         //moleIn.main(null);
@@ -35,21 +35,21 @@ public class GUI extends javax.swing.JFrame {
 
     public void addToMol(Atom atom, String bondType) {
         if (bondType.equals("Covalent")) {
-            mol.covalentBond(atom);
+            project.getCurrentMol().covalentBond(atom);
         } else if (bondType.equals("Double")) {
-            mol.doubleBond(atom);
+            project.getCurrentMol().doubleBond(atom);
         } else {
-            mol.ionicBond(atom);
+            project.getCurrentMol().ionicBond(atom);
         }
         refresh();
     }
 
     public Molecule getMol() {
-        return mol;
+        return project.getCurrentMol();
     }
 
-    public void setMol(Molecule mol) {
-        this.mol = mol;
+    public void addMol(Molecule mol) {
+        this.project.addMol(mol);
         refresh();
     }
 
@@ -90,18 +90,22 @@ public class GUI extends javax.swing.JFrame {
         // update molecule
         // refreshes all
         this.remove(render);
-        render = new Render(mol);
+        render = new Render(project.getCurrentMol());
         this.add(render);
         reRender();
         this.invalidate();
         render.repaint();
         this.revalidate();
 
-        molName.setText(mol.getName());
-        molFormula.setText(mol.calculateFormula());
-        molAtoms.setText(String.valueOf(mol.getNumberOfAtoms()));
-        molProt.setText(String.valueOf(mol.getSize()));
-        molFree.setText(String.valueOf(mol.getTotalFreeElectrons()));
+        molName.setText(project.getCurrentMol().getName());
+        molFormula.setText(project.getCurrentMol().calculateFormula());
+        molAtoms.setText(String.valueOf(project.getCurrentMol().getNumberOfAtoms()));
+        molProt.setText(String.valueOf(project.getCurrentMol().getSize()));
+        molFree.setText(String.valueOf(project.getCurrentMol().getTotalFreeElectrons()));
+        
+        projectName.setText(project.getName());
+        filePath.setText(project.getFilePath());
+        
 
     }
 
@@ -114,7 +118,7 @@ public class GUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        render = new Render(mol);
+        render = new Render(project.getCurrentMol());
         title = new javax.swing.JLabel();
         infoWrap = new javax.swing.JPanel();
         projectInfoWrap = new javax.swing.JPanel();
@@ -142,7 +146,7 @@ public class GUI extends javax.swing.JFrame {
         manualRefresh = new javax.swing.JMenuItem();
         edit = new javax.swing.JMenu();
         deleteLast = new javax.swing.JMenuItem();
-        project = new javax.swing.JMenu();
+        projectMenu = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         molecule = new javax.swing.JMenu();
         newMolecule = new javax.swing.JMenuItem();
@@ -270,7 +274,7 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(molFormula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(molAtoms, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(molName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(167, Short.MAX_VALUE))
         );
         moleculeInfoWrapLayout.setVerticalGroup(
             moleculeInfoWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -306,8 +310,8 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(infoWrapLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(infoWrapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(projectInfoWrap, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
-                    .addComponent(moleculeInfoWrap, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(moleculeInfoWrap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(projectInfoWrap, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE))
                 .addContainerGap())
         );
         infoWrapLayout.setVerticalGroup(
@@ -356,13 +360,13 @@ public class GUI extends javax.swing.JFrame {
 
         menuBar.add(edit);
 
-        project.setText("Project");
+        projectMenu.setText("Project");
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem2.setText("Change Current Molecule");
-        project.add(jMenuItem2);
+        projectMenu.add(jMenuItem2);
 
-        menuBar.add(project);
+        menuBar.add(projectMenu);
 
         molecule.setText("Molecule");
 
@@ -450,26 +454,29 @@ public class GUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(infoWrap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(render, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(title, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(18, 18, 18)
+                        .addComponent(render, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 15, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(title)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+                .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(render, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(infoWrap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(infoWrap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(render, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -493,34 +500,34 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_manualRefreshActionPerformed
 
     private void autoChlorineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoChlorineActionPerformed
-        int total = mol.getTotalFreeElectrons();
+        int total = project.getCurrentMol().getTotalFreeElectrons();
         for (int i = 0; i < total; i++) {
-            mol.covalentBond(new Chlorine());
+            project.getCurrentMol().covalentBond(new Chlorine());
             refresh();
         }
     }//GEN-LAST:event_autoChlorineActionPerformed
 
     private void autoHydrogenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoHydrogenActionPerformed
-        int total = mol.getTotalFreeElectrons();
+        int total = project.getCurrentMol().getTotalFreeElectrons();
         for (int i = 0; i < total; i++) {
-            mol.covalentBond(new Hydrogen());
+            project.getCurrentMol().covalentBond(new Hydrogen());
             refresh();
         }
     }//GEN-LAST:event_autoHydrogenActionPerformed
 
     private void autoFluorineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoFluorineActionPerformed
-        int total = mol.getTotalFreeElectrons();
+        int total = project.getCurrentMol().getTotalFreeElectrons();
         for (int i = 0; i < total; i++) {
-            mol.covalentBond(new Fluorine());
+            project.getCurrentMol().covalentBond(new Fluorine());
             refresh();
         }
     }//GEN-LAST:event_autoFluorineActionPerformed
 
     private void deleteLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteLastActionPerformed
-        if (mol.getNumberOfAtoms() > 1) {
-            ArrayList<Atom> atoms = mol.getAtoms();
+        if (project.getCurrentMol().getNumberOfAtoms() > 1) {
+            ArrayList<Atom> atoms = project.getCurrentMol().getAtoms();
             Atom toRemove = atoms.get(atoms.size() - 1);
-            mol.unBondAtom(toRemove);
+            project.getCurrentMol().unBondAtom(toRemove);
             refresh();
         }
     }//GEN-LAST:event_deleteLastActionPerformed
@@ -539,7 +546,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void newProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newProjectActionPerformed
-        NewProject np = new NewProject();
+        NewProject np = new NewProject(this);
         np.main(null);
     }//GEN-LAST:event_newProjectActionPerformed
 
@@ -613,8 +620,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel moleculeInfoWrap;
     private javax.swing.JMenuItem newMolecule;
     private javax.swing.JMenuItem newProject;
-    private javax.swing.JMenu project;
     private javax.swing.JPanel projectInfoWrap;
+    private javax.swing.JMenu projectMenu;
     private javax.swing.JLabel projectName;
     private javax.swing.JPanel render;
     private javax.swing.JMenuItem showBuildInfo;

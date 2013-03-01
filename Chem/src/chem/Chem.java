@@ -36,8 +36,8 @@ public class Chem {
 
         System.out.println("--------------------------");
         
-        GUI gui = new GUI(water);
-        gui.main(null);
+        //GUI gui = new GUI(water);
+        //gui.main(null);
     }
 
     private static void module2() {
@@ -165,8 +165,8 @@ public class Chem {
         
         //r.run();
         
-        GUI gui = new GUI(co2);
-        gui.main(null);
+        //GUI gui = new GUI(co2);
+        //gui.main(null);
 
 
 
@@ -227,8 +227,8 @@ public class Chem {
         
         //r.run();
         
-        GUI gui = new GUI(alanine);
-        gui.main(null);
+        //GUI gui = new GUI(alanine);
+        //gui.main(null);
 
     }
 

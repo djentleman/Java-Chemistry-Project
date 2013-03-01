@@ -13,7 +13,10 @@ public class NewProject extends javax.swing.JFrame {
     /**
      * Creates new form NewProject
      */
-    public NewProject() {
+    private static GUI gui;
+    
+    public NewProject(GUI gui) {
+        this.gui = gui;
         initComponents();
     }
 
@@ -220,7 +223,7 @@ public class NewProject extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewProject().setVisible(true);
+                new NewProject(gui).setVisible(true);
             }
         });
     }
