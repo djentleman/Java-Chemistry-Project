@@ -193,7 +193,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="infoWrap" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -215,12 +215,12 @@
               <Component id="title" pref="78" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                      <Component id="infoWrap" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="render" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <Component id="infoWrap" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -274,7 +274,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="moleculeInfoWrap" max="32767" attributes="0"/>
-                      <Component id="projectInfoWrap" pref="332" max="32767" attributes="0"/>
+                      <Component id="projectInfoWrap" pref="314" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -284,10 +284,10 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="projectInfoWrap" min="-2" pref="75" max="-2" attributes="0"/>
+                  <Component id="projectInfoWrap" pref="100" max="32767" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="moleculeInfoWrap" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -315,11 +315,13 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lblProjName" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lblFP" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblNoOfMols" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="projectName" pref="82" max="32767" attributes="0"/>
-                          <Component id="filePath" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="filePath" alignment="0" pref="82" max="32767" attributes="0"/>
+                          <Component id="projectName" alignment="0" max="32767" attributes="0"/>
+                          <Component id="noOfMols" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -339,7 +341,12 @@
                           <Component id="lblFP" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="filePath" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblNoOfMols" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="noOfMols" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="16" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -370,6 +377,16 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="filePath">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="-"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblNoOfMols">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Number Of Molecules:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="noOfMols">
               <Properties>
                 <Property name="text" type="java.lang.String" value="-"/>
               </Properties>
@@ -408,7 +425,7 @@
                               <Component id="molName" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="167" max="32767" attributes="0"/>
+                      <EmptySpace pref="149" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

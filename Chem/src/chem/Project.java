@@ -61,4 +61,12 @@ public class Project {
     public void setFilePath(String filePath){
         this.filePath = filePath;
     }
+    
+    public int getCurrentMolIndex(){
+        return molecules.indexOf(currentMol);
+    }
+    
+    public int getNumberOfMolecules(){
+        return molecules.size();
+    }
 }
