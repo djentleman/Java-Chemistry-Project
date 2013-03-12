@@ -17,15 +17,18 @@ public class GUI extends javax.swing.JFrame {
      * Creates new form GUI
      */
     private static Project project;
+    private int renderType; // render type
 
     public GUI(Project project) {
         this.project = project;
+        this.renderType = 2;
         initComponents();
         this.setBackground(Color.white);
     }
 
     public GUI() {
         this.project = new Project(new Molecule(new Hydrogen(), "Empty"), "Empty");
+        this.renderType = 2;
         initComponents();
         //MoleculeInput moleIn = new MoleculeInput(this); // launches before main GUI can run
         //moleIn.main(null);
@@ -90,7 +93,7 @@ public class GUI extends javax.swing.JFrame {
         // update molecule
         // refreshes all
         this.remove(render);
-        render = new Render(project.getCurrentMol());
+        render = new Render(project.getCurrentMol(), renderType);
         this.add(render);
         reRender();
         this.invalidate();
@@ -119,7 +122,7 @@ public class GUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        render = new Render(project.getCurrentMol());
+        render = new Render(project.getCurrentMol(), renderType);
         title = new javax.swing.JLabel();
         infoWrap = new javax.swing.JPanel();
         projectInfoWrap = new javax.swing.JPanel();
@@ -149,6 +152,12 @@ public class GUI extends javax.swing.JFrame {
         manualRefresh = new javax.swing.JMenuItem();
         edit = new javax.swing.JMenu();
         deleteLast = new javax.swing.JMenuItem();
+        view = new javax.swing.JMenu();
+        selectRenderType = new javax.swing.JMenu();
+        fullRender = new javax.swing.JCheckBoxMenuItem();
+        negateHydrogen = new javax.swing.JCheckBoxMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        smartRender = new javax.swing.JCheckBoxMenuItem();
         projectMenu = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         molecule = new javax.swing.JMenu();
@@ -373,6 +382,40 @@ public class GUI extends javax.swing.JFrame {
 
         menuBar.add(edit);
 
+        view.setText("View");
+
+        selectRenderType.setText("Select Render Type");
+
+        fullRender.setText("Full Render");
+        fullRender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fullRenderActionPerformed(evt);
+            }
+        });
+        selectRenderType.add(fullRender);
+
+        negateHydrogen.setText("Negate Hydrogens");
+        negateHydrogen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                negateHydrogenActionPerformed(evt);
+            }
+        });
+        selectRenderType.add(negateHydrogen);
+        selectRenderType.add(jSeparator3);
+
+        smartRender.setSelected(true);
+        smartRender.setText("'Smart' Render");
+        smartRender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                smartRenderActionPerformed(evt);
+            }
+        });
+        selectRenderType.add(smartRender);
+
+        view.add(selectRenderType);
+
+        menuBar.add(view);
+
         projectMenu.setText("Project");
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
@@ -563,6 +606,44 @@ public class GUI extends javax.swing.JFrame {
         np.main(null);
     }//GEN-LAST:event_newProjectActionPerformed
 
+    private void fullRenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fullRenderActionPerformed
+        // Full render
+        negateHydrogen.setSelected(false);
+        smartRender.setSelected(false);
+        
+        
+        fullRender.setSelected(true);
+        
+        renderType = 0;
+        refresh();
+        
+    }//GEN-LAST:event_fullRenderActionPerformed
+
+    private void negateHydrogenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_negateHydrogenActionPerformed
+        // Negate Hydrogens
+        smartRender.setSelected(false);
+        fullRender.setSelected(false);
+        
+        
+        negateHydrogen.setSelected(true);
+        
+        renderType = 1;
+        refresh();
+    }//GEN-LAST:event_negateHydrogenActionPerformed
+
+    private void smartRenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_smartRenderActionPerformed
+        // Smart Render
+        fullRender.setSelected(false);
+        negateHydrogen.setSelected(false);
+        
+        smartRender.setSelected(true);
+        
+        
+        
+        renderType = 2;
+        refresh();
+    }//GEN-LAST:event_smartRenderActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -608,11 +689,13 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JMenu edit;
     private javax.swing.JMenu file;
     private javax.swing.JLabel filePath;
+    private javax.swing.JCheckBoxMenuItem fullRender;
     private javax.swing.JPanel infoWrap;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JLabel lblFP;
     private javax.swing.JLabel lblFormula;
     private javax.swing.JLabel lblFreeElc;
@@ -632,6 +715,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel molProt;
     private javax.swing.JMenu molecule;
     private javax.swing.JPanel moleculeInfoWrap;
+    private javax.swing.JCheckBoxMenuItem negateHydrogen;
     private javax.swing.JMenuItem newMolecule;
     private javax.swing.JMenuItem newProject;
     private javax.swing.JLabel noOfMols;
@@ -639,7 +723,10 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JMenu projectMenu;
     private javax.swing.JLabel projectName;
     private javax.swing.JPanel render;
+    private javax.swing.JMenu selectRenderType;
     private javax.swing.JMenuItem showBuildInfo;
+    private javax.swing.JCheckBoxMenuItem smartRender;
     private javax.swing.JLabel title;
+    private javax.swing.JMenu view;
     // End of variables declaration//GEN-END:variables
 }

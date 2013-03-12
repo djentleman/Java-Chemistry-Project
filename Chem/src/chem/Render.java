@@ -20,20 +20,40 @@ import java.util.*; //for arraylists
 public class Render extends JPanel {
 
     private Molecule molecule; // each render panel is focused on one molecule
+    private int renderType;
+    
+    public Render(){
+        super();
+        // default constructor
+    }
 
     public Render(Molecule molecule) // set up graphics window
     {
         super();
-        //setBackground(Color.WHITE);
         this.molecule = molecule;
-        
+        renderType = 2; // default
+    }
+    
+    public Render(Molecule molecule, int renderType){
+        super();
+        this.molecule = molecule;
+        this.renderType = renderType;
+        //System.out.println(this.renderType);
+    }
+    
 
-        
+    public void setRenderAsBig() {
+        renderType = 0;
     }
 
+    public void setRenderAsSmall() {
+        renderType = 1;
+    }
 
-    
-    
+    public void setRenderAsSmart() {
+        renderType = 2;
+    }
+
     public void paintComponent(Graphics g) // draw graphics in the panel
     {
         int width = getWidth();             // width of window in pixels
@@ -57,12 +77,21 @@ public class Render extends JPanel {
 
         //g.drawString(molecule.getName(), 250, 30);
         //g.drawString("Formula: " + molecule.calculateFormula(), 250, 60);
-
-        if (molecule.getNumberOfAtoms() < 21) { // molecule is small, 20 atoms or less
+        //System.out.println(renderType);
+        if (renderType == 0) {
+            // draw all of molecule
             drawMolecule(g, core, cX, cY, true, "none", false);
-        } else {
-            // molecule is big
+        } else if (renderType == 1) {
+            // negate hydrogen
             drawMoleculeShort(g, core, cX, cY, true, "none", false);
+        } else {
+            // smart render
+            if (molecule.getNumberOfAtoms() < 21) { // molecule is small, 20 atoms or less
+                drawMolecule(g, core, cX, cY, true, "none", false);
+            } else {
+                // molecule is big
+                drawMoleculeShort(g, core, cX, cY, true, "none", false);
+            }
         }
 
         //CH4, non generic
@@ -107,8 +136,8 @@ public class Render extends JPanel {
 
 
     }
-    
-    private int getHydrogenCount(Atom current){
+
+    private int getHydrogenCount(Atom current) {
         ArrayList<Atom> cBonds = current.getCBondList();
         int hydrogenCount = 0;
 
@@ -117,7 +146,7 @@ public class Render extends JPanel {
                 hydrogenCount++;
             }
         }
-        
+
         return hydrogenCount;
     }
 
@@ -145,8 +174,8 @@ public class Render extends JPanel {
                 bondList.add(atom); // don't need hydrogens
             }
         }
-        
-        
+
+
 
         int adjacent = current.getAdjacent();
         adjacent -= getHydrogenCount(current);
