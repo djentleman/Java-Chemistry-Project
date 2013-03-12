@@ -80,3 +80,19 @@ gain atoms from being bonded to
 - more module tests in 'Chem'
 
 ------------------------------------------------------
+
+IDEAS
+
+--SIMULATION--
+
+- calculate stability using electronegativity & energy quanta
+
+- simulate bonding using electronegativity, energy quanta & entropy
+
+--OTHER--
+
+- add a temprature variable for a project (affects stability, decreases size of stability bracket)
+
+
+
+
