@@ -17,9 +17,28 @@ INDEV
 
 - on launch bug fix
 
-- changes made to 'smart render', a molecule must contain 20 atoms in order to be rendered in shorthand
+- changes made to 'smart render', a
+molecule must contain 20 atoms in order to be rendered in shorthand
 
 - able to delete the last added atom from the molecule
+
+- users can now pick bond types when adding atoms
+
+- add atom bugfix
+
+- project class added, but not implemented
+
+- obsolete classes removed
+
+- new project form added
+
+- cranges made to GUI structure
+
+- now works with 'Project' as opposed to 'Molecule'
+
+- keeps track of number of Molecules in project
+
+- can now change rendeing type
 
 ---------------------------------------------------
 v1.2
