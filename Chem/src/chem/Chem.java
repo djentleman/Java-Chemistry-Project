@@ -8,6 +8,7 @@ package chem;
  *
  * @author Todd Perry
  */
+import chem.atoms.Sodium;
 import java.util.*;
 
 public class Chem {

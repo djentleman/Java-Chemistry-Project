@@ -4,6 +4,8 @@
  */
 package chem;
 
+import chem.atoms.Sodium;
+
 /**
  *
  * @author U AMD
