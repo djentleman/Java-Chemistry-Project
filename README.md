@@ -7,7 +7,7 @@ CHANGELOG:
 
 ---------------------------------------------------
 
-v1.3
+v1.3 (15/03/2013)
 
 --changes from v1.2--
 
@@ -45,7 +45,7 @@ molecule must contain 20 atoms in order to be rendered in shorthand
 - undo bug(s) fixed
 
 ---------------------------------------------------
-v1.2
+v1.2 (22/02/2013)
 
 --changes from v1.1--
 
@@ -56,7 +56,7 @@ v1.2
 - Chem now runs a GUI
 
 ---------------------------------------------------
-v1.1
+v1.1 (12/01/2013)
 
 --changes from v1.0--
 
