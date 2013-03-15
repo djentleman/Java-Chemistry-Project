@@ -40,6 +40,8 @@ molecule must contain 20 atoms in order to be rendered in shorthand
 
 - can now change rendeing type
 
+- modularized file structure
+
 ---------------------------------------------------
 v1.2
 
