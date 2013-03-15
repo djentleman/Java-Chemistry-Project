@@ -47,13 +47,13 @@ public class BuildInfo extends javax.swing.JFrame {
 
         jLabel2.setText("Version:");
 
-        jLabel4.setText("1.2");
+        jLabel4.setText("1.3");
 
         jLabel3.setText("Todd Perry");
 
         jLabel5.setText("Release:");
 
-        jLabel6.setText("22/02/2013");
+        jLabel6.setText("15/03/2013");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

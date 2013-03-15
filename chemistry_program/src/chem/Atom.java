@@ -35,22 +35,22 @@ public abstract class Atom {
     } //default contructor
     //other constructors will not be needed, as each atom defines itself
 
-    public void setParent(Atom parent){
+    public void setParent(Atom parent) {
         this.parent = parent;
     }
-    
-    public Atom getParent(){
+
+    public Atom getParent() {
         return parent;
     }
-    
-    public void setGroup(int grp){
+
+    public void setGroup(int grp) {
         group = grp;
     }
-    
-    public int getGroup(){
+
+    public int getGroup() {
         return group;
     }
-    
+
     public void setId(int id) {
         this.id = id;
     }
@@ -59,46 +59,60 @@ public abstract class Atom {
         return id;
     }
 
-    public boolean unBond(Atom toDelete) {
+    public boolean unBond(Atom toDelete, int bondType) {
 
         boolean atomFound = false;
+        if (bondType != -1) {
 
-        ArrayList<Atom> temp = new ArrayList<Atom>(0);
-        for (Atom current : cBondList) {
-            if (current.getId() != toDelete.getId()) {
-                temp.add(current);
-            } else {
-                atomFound = true;
+            ArrayList<Atom> temp = new ArrayList<Atom>(0);
+            for (Atom current : cBondList) {
+                if (current.getId() != toDelete.getId()) {
+                    temp.add(current);
+                } else {
+                    atomFound = true;
+                }
             }
-        }
-        cBondList = temp;
+            cBondList = temp;
 
-        ArrayList<Atom> temp2 = new ArrayList<Atom>(0);
-        for (Atom current : dBondList) {
-            if (current.getId() != toDelete.getId()) {
-                temp2.add(current);
-            } else {
-                atomFound = true;
+            ArrayList<Atom> temp2 = new ArrayList<Atom>(0);
+            for (Atom current : dBondList) {
+                if (current.getId() != toDelete.getId()) {
+                    temp2.add(current);
+                } else {
+                    atomFound = true;
+                }
             }
-        }
-        dBondList = temp2;
+            dBondList = temp2;
 
-        ArrayList<Atom> temp3 = new ArrayList<Atom>(0);
-        for (Atom current : iBondList) {
-            if (current.getId() != toDelete.getId()) {
-                temp3.add(current);
-            } else {
-                atomFound = true;
+            ArrayList<Atom> temp3 = new ArrayList<Atom>(0);
+            for (Atom current : iBondList) {
+                if (current.getId() != toDelete.getId()) {
+                    temp3.add(current);
+                } else {
+                    atomFound = true;
+                }
             }
-        }
-        iBondList = temp3;
+            iBondList = temp3;
 
-        if (atomFound) {
-            freeElectrons++;
-            // consider refractoring this statement for negative ionic bonding
+            if (atomFound) {
+                if (bondType == 0) {
+                    freeElectrons++;
+                    // consider refractoring this statement for negative ionic bonding
+                } else if (bondType == 1) {
+                    // double bond
+                    freeElectrons += 2;
+                } else if (bondType == 2) {
+                    // ionic bonding
+                    freeElectrons++;
+                }
+            }
+
+            return atomFound;
+        } else {
+            // cannot unbond, nothing to unbond
+            return false;
         }
-        
-        return atomFound;
+
 
     }
 
@@ -241,10 +255,9 @@ public abstract class Atom {
         System.out.println("Free Electrons:" + freeElectrons);
         System.out.println("Charge: " + charge);
         System.out.println("2D Bond Angle: " + get2dBondAngle());
-        if (parent != null){
+        if (parent != null) {
             System.out.println("Parent: " + parent.getSymbol());
-        }
-        else {
+        } else {
             System.out.println("Parent: null");
         }
 

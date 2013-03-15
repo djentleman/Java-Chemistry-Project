@@ -120,7 +120,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="1.2"/>
+            <Property name="text" type="java.lang.String" value="1.3"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
@@ -135,7 +135,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
-            <Property name="text" type="java.lang.String" value="22/02/2013"/>
+            <Property name="text" type="java.lang.String" value="15/03/2013"/>
           </Properties>
         </Component>
       </SubComponents>

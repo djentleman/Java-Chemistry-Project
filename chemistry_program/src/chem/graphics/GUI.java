@@ -104,18 +104,18 @@ public class GUI extends javax.swing.JFrame {
         reRender();
         this.invalidate();
         render.repaint();
-        this.revalidate();
+        //this.revalidate();
 
         molName.setText(project.getCurrentMol().getName());
         molFormula.setText(project.getCurrentMol().calculateFormula());
         molAtoms.setText(String.valueOf(project.getCurrentMol().getNumberOfAtoms()));
         molProt.setText(String.valueOf(project.getCurrentMol().getSize()));
         molFree.setText(String.valueOf(project.getCurrentMol().getTotalFreeElectrons()));
-        
+
         projectName.setText(project.getName());
         filePath.setText(project.getFilePath());
         noOfMols.setText(String.valueOf(project.getNumberOfMolecules()));
-        
+
 
     }
 
@@ -588,8 +588,12 @@ public class GUI extends javax.swing.JFrame {
     private void deleteLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteLastActionPerformed
         if (project.getCurrentMol().getNumberOfAtoms() > 1) {
             ArrayList<Atom> atoms = project.getCurrentMol().getAtoms();
-            Atom toRemove = atoms.get(atoms.size() - 1);
-            project.getCurrentMol().unBondAtom(toRemove);
+            if (atoms.size() > 1) {
+                Atom toRemove = atoms.get(atoms.size() - 1); // error is on this line
+                atoms.get(atoms.size() - 1).printOut();
+                project.getCurrentMol().unBondAtom(toRemove);
+                refresh();
+            }
             refresh();
         }
     }//GEN-LAST:event_deleteLastActionPerformed
@@ -616,23 +620,23 @@ public class GUI extends javax.swing.JFrame {
         // Full render
         negateHydrogen.setSelected(false);
         smartRender.setSelected(false);
-        
-        
+
+
         fullRender.setSelected(true);
-        
+
         renderType = 0;
         refresh();
-        
+
     }//GEN-LAST:event_fullRenderActionPerformed
 
     private void negateHydrogenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_negateHydrogenActionPerformed
         // Negate Hydrogens
         smartRender.setSelected(false);
         fullRender.setSelected(false);
-        
-        
+
+
         negateHydrogen.setSelected(true);
-        
+
         renderType = 1;
         refresh();
     }//GEN-LAST:event_negateHydrogenActionPerformed
@@ -641,11 +645,11 @@ public class GUI extends javax.swing.JFrame {
         // Smart Render
         fullRender.setSelected(false);
         negateHydrogen.setSelected(false);
-        
+
         smartRender.setSelected(true);
-        
-        
-        
+
+
+
         renderType = 2;
         refresh();
     }//GEN-LAST:event_smartRenderActionPerformed

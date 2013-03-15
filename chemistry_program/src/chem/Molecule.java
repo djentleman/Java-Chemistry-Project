@@ -17,9 +17,12 @@ public class Molecule {
     private int size; // number of atoms contained
     private int currentId; // handles the contained Atom IDs
     private int id; // unique molecule ID number
+    private int lastBond; // allows unbond to work, records the last bond
+    // -1 for no bonds, 0 for covalent, 1 for double, 2 for ionic
 
     public Molecule() {
         atoms = new ArrayList<Atom>(); // init
+        lastBond = -1;
         //default constructor
     }
 
@@ -32,13 +35,14 @@ public class Molecule {
         this.name = name;
         id = -1; // not yet asigned, will be asigned by a higher method usch a protein builder
         size = 1; // starts off witha  core
+        lastBond = -1;
     }
 
     public ArrayList<Atom> getAtoms() {
         return atoms;
     }
-    
-    public void setAtoms(ArrayList<Atom> atoms){
+
+    public void setAtoms(ArrayList<Atom> atoms) {
         this.atoms = atoms;
     }
 
@@ -68,7 +72,7 @@ public class Molecule {
     public void setId(int id) {
         this.id = id;
     }
-    
+
     public int getNumberOfAtoms() {
         return size; // returns number of atoms
     }
@@ -118,6 +122,9 @@ public class Molecule {
             //if the two atoms can bond, they will
             atom1.bond(atom2);
             atom2.bond(atom1);
+            // bond successful
+            lastBond = 0;
+
             //the molecule can contain either, or both atoms
             if (atoms.contains(atom1) == false) {
                 atoms.add(atom1);
@@ -155,6 +162,7 @@ public class Molecule {
                     //if current can bond
                     current.bond(atom);
                     atom.bond(current);
+                    lastBond = 0;
                     atom.setParent(current); // set parent
 
                     atom.setId(currentId);
@@ -184,6 +192,8 @@ public class Molecule {
                 atom1.doubleBond(atom2);
 
                 atom2.doubleBond(atom1);
+                
+                lastBond = 1;
 
                 if (atoms.contains(atom1) == false) {
                     atoms.add(atom1);
@@ -223,6 +233,7 @@ public class Molecule {
                     atom.setId(currentId);
                     currentId++;
                     size++;
+                    lastBond = 1;
 
                     hasBonded = true;
                     atoms.add(atom);
@@ -243,6 +254,8 @@ public class Molecule {
                 atom1.ionicBond(atom2);
 
                 atom2.ionicBond(atom1);
+                
+                lastBond = 2;
 
                 if (atoms.contains(atom1) == false) {
                     atoms.add(atom1);
@@ -283,6 +296,7 @@ public class Molecule {
                 atom.setId(currentId);
                 currentId++;
                 size++;
+                lastBond = 2;
 
                 hasBonded = true;
                 atoms.add(atom);
@@ -505,18 +519,21 @@ public class Molecule {
     }
 
     public void unBondAtom(Atom toRemove) {
-        int idToRemove = atoms.indexOf(toRemove);
+        int idToRemove = toRemove.getId(); // get ID, as opposed to index
         // we have the id to remove
 
-        atoms.remove(idToRemove); // remove the atom from the molecule
+        //atoms.remove(toRemove); // remove the atom from the molecule
         // doesn't work if atom has previously unbonded
-
+        
+        
+        atoms.remove(toRemove);
+    
 
         for (Atom current : atoms) {
             // cycle through atoms to remove from bond indexes
             for (Atom bond : current.cBondList) {
                 if (bond.getId() == idToRemove) {
-                    boolean found = current.unBond(toRemove);
+                    boolean found = current.unBond(toRemove, lastBond);
                     if (found) {
                         size--;
                     }
@@ -525,7 +542,7 @@ public class Molecule {
 
             for (Atom bond : current.dBondList) {
                 if (bond.getId() == idToRemove) {
-                    boolean found = current.unBond(toRemove);
+                    boolean found = current.unBond(toRemove, lastBond);
                     if (found) {
                         size--;
                     }
@@ -534,7 +551,7 @@ public class Molecule {
 
             for (Atom bond : current.iBondList) {
                 if (bond.getId() == idToRemove) {
-                    boolean found = current.unBond(toRemove);
+                    boolean found = current.unBond(toRemove, lastBond);
                     if (found) {
                         size--;
                     }
