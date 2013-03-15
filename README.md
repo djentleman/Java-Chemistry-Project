@@ -1,13 +1,13 @@
 Java-Chemistry-Project
 ======================
 
-> Current Version 1.2
+> Current Version 1.3
 
 CHANGELOG:
 
 ---------------------------------------------------
 
-INDEV
+v1.3
 
 --changes from v1.2--
 
@@ -41,6 +41,8 @@ molecule must contain 20 atoms in order to be rendered in shorthand
 - can now change rendeing type
 
 - modularized file structure
+
+- undo bug(s) fixed
 
 ---------------------------------------------------
 v1.2
