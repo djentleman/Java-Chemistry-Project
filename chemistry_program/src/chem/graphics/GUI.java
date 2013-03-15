@@ -30,6 +30,7 @@ public class GUI extends javax.swing.JFrame {
         this.renderType = 2;
         initComponents();
         this.setBackground(Color.white);
+        refresh();
     }
 
     public GUI() {
@@ -39,6 +40,11 @@ public class GUI extends javax.swing.JFrame {
         //MoleculeInput moleIn = new MoleculeInput(this); // launches before main GUI can run
         //moleIn.main(null);
 
+        refresh();
+    }
+    
+    public void setProject(Project newProject){
+        this.project = newProject;
         refresh();
     }
 

@@ -8,13 +8,24 @@ package chem.graphics;
  *
  * @author Todd Perry
  */
+import chem.Atom;
+import chem.Molecule;
+import chem.Project;
+import chem.atoms.Lithium;
+import chem.atoms.Chlorine;
+import chem.atoms.Oxygen;
+import chem.atoms.Carbon;
+import chem.atoms.Fluorine;
+import chem.atoms.Hydrogen;
+import chem.atoms.Nitrogen;
+
 public class NewProject extends javax.swing.JFrame {
 
     /**
      * Creates new form NewProject
      */
     private static GUI gui;
-    
+
     public NewProject(GUI gui) {
         this.gui = gui;
         initComponents();
@@ -144,6 +155,11 @@ public class NewProject extends javax.swing.JFrame {
         );
 
         submit.setText("Submit");
+        submit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitActionPerformed(evt);
+            }
+        });
 
         cancel.setText("Cancel");
 
@@ -192,6 +208,53 @@ public class NewProject extends javax.swing.JFrame {
     private void molNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_molNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_molNameActionPerformed
+
+    private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
+        // construct a project and return it to the gui
+
+        // first create a molecule
+
+        String core = String.valueOf(atomType.getSelectedItem()); // get string value
+
+        Atom atom = new Carbon(); // default
+
+        if (core.equals("Carbon")) {
+            atom = new Carbon();
+        } else if (core.equals("Chlorine")) {
+            atom = new Chlorine();
+        } else if (core.equals("Fluorine")) {
+            atom = new Fluorine();
+        } else if (core.equals("Hydrogen")) {
+            atom = new Hydrogen();
+        } else if (core.equals("Lithium")) {
+            atom = new Lithium();
+        } else if (core.equals("Nitrogen")) {
+            atom = new Nitrogen();
+        } else {
+            atom = new Oxygen();
+        }
+        
+        Molecule mol = new Molecule(atom, molName.getText());
+        // mol is the molecule to add
+        
+        Project project = new Project(mol, projName.getText(), filePath.getText());
+        // possibly get filePath from a fileChooser
+        
+        gui.setProject(project); // set Project
+        
+        
+        this.dispose();
+
+
+
+
+
+
+
+
+
+
+    }//GEN-LAST:event_submitActionPerformed
 
     /**
      * @param args the command line arguments
