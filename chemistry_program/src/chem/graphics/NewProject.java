@@ -52,7 +52,7 @@ public class NewProject extends javax.swing.JFrame {
         lblProName = new javax.swing.JLabel();
         lblFilePath = new javax.swing.JLabel();
         projName = new javax.swing.JTextField();
-        filePath = new javax.swing.JTextField();
+        filePath = new javax.swing.JLabel();
         submit = new javax.swing.JButton();
         cancel = new javax.swing.JButton();
 
@@ -122,6 +122,14 @@ public class NewProject extends javax.swing.JFrame {
 
         lblFilePath.setText("File Path:");
 
+        projName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                projNameKeyReleased(evt);
+            }
+        });
+
+        filePath.setText("-");
+
         javax.swing.GroupLayout projectWrapperLayout = new javax.swing.GroupLayout(projectWrapper);
         projectWrapper.setLayout(projectWrapperLayout);
         projectWrapperLayout.setHorizontalGroup(
@@ -134,8 +142,8 @@ public class NewProject extends javax.swing.JFrame {
                     .addComponent(lblFilePath))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(projectWrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(filePath, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                    .addComponent(projName))
+                    .addComponent(projName, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                    .addComponent(filePath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         projectWrapperLayout.setVerticalGroup(
@@ -150,7 +158,7 @@ public class NewProject extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(projectWrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblFilePath)
-                    .addComponent(filePath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(filePath))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -237,7 +245,7 @@ public class NewProject extends javax.swing.JFrame {
         Molecule mol = new Molecule(atom, molName.getText());
         // mol is the molecule to add
         
-        Project project = new Project(mol, projName.getText(), filePath.getText());
+        Project project = new Project(mol, projName.getText());
         // possibly get filePath from a fileChooser
         
         gui.setProject(project); // set Project
@@ -255,6 +263,12 @@ public class NewProject extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_submitActionPerformed
+
+    private void projNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_projNameKeyReleased
+        // FP changed
+        
+        filePath.setText("Projects/" + projName.getText() + ".txt");
+    }//GEN-LAST:event_projNameKeyReleased
 
     /**
      * @param args the command line arguments
@@ -293,7 +307,7 @@ public class NewProject extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox atomType;
     private javax.swing.JButton cancel;
-    private javax.swing.JTextField filePath;
+    private javax.swing.JLabel filePath;
     private javax.swing.JLabel lblFilePath;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPro;

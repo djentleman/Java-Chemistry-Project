@@ -21,21 +21,15 @@ public class Project {
     private String filePath; // save/load location
     private String name; // name of project
     
-    public Project(Molecule starter, String name, String fp){
-        molecules = new ArrayList<Molecule>(); // init
-        currentMol = starter; // add
-        molecules.add(starter);
-        this.name = name;
-        this.filePath = fp;
-    }
-    
     public Project(Molecule starter, String name){
         molecules = new ArrayList<Molecule>(); // init
         currentMol = starter; // add
         molecules.add(starter);
         this.name = name;
-        this.filePath = "C:/Program Files/ChemRender/"; // default filePath
+        this.filePath = "Projects/" + name + ".txt";
     }
+    
+    
     
     public Molecule getCurrentMol(){
         return this.currentMol;
