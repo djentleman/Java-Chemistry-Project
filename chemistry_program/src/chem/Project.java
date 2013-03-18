@@ -63,4 +63,20 @@ public class Project {
     public int getNumberOfMolecules(){
         return molecules.size();
     }
+    
+        public ArrayList<Molecule> getMolecules(){
+        return molecules;
+    }
+    
+    public String[] getMoleculesAsStringArray(){
+        // returns a string array of the molecules
+        // for combo boxes
+        ArrayList<String> stringAL = new ArrayList<String>();
+        for(Molecule mol : molecules){
+            stringAL.add(mol.getName());
+        }
+        String[] stringArr = {};
+        stringArr = stringAL.toArray(stringArr);
+        return stringArr;
+    }
 }
