@@ -35,6 +35,10 @@ public class Project {
         return this.currentMol;
     }
     
+    public void setCurrentMol(Molecule mol){
+        currentMol = mol;
+    }
+    
     public void addMol(Molecule mol){
         molecules.add(mol);
         currentMol = mol;

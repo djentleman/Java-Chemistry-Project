@@ -8,6 +8,11 @@ package chem.graphics;
  *
  * @author Todd Perry
  */
+
+import chem.Molecule;
+import java.util.ArrayList;
+
+
 public class ChangeMolecule extends javax.swing.JFrame {
 
     /**
@@ -29,21 +34,103 @@ public class ChangeMolecule extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        title = new javax.swing.JLabel();
+        infoWrapper = new javax.swing.JPanel();
+        lblMol = new javax.swing.JLabel();
+        newMol = new javax.swing.JComboBox();
+        submit = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Change Molecule");
+
+        title.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        title.setText("Change Molecule");
+
+        lblMol.setText("Molecule:");
+
+        newMol.setModel(new javax.swing.DefaultComboBoxModel(gui.getProject().getMoleculesAsStringArray()));
+
+        submit.setText("Change Molecule");
+        submit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout infoWrapperLayout = new javax.swing.GroupLayout(infoWrapper);
+        infoWrapper.setLayout(infoWrapperLayout);
+        infoWrapperLayout.setHorizontalGroup(
+            infoWrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(infoWrapperLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(infoWrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(infoWrapperLayout.createSequentialGroup()
+                        .addComponent(lblMol)
+                        .addGap(48, 48, 48)
+                        .addComponent(newMol, 0, 154, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, infoWrapperLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(submit)))
+                .addContainerGap())
+        );
+        infoWrapperLayout.setVerticalGroup(
+            infoWrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(infoWrapperLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(infoWrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblMol)
+                    .addComponent(newMol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addComponent(submit)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(infoWrapper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(title)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(infoWrapper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
+        // TODO add your handling code here:
+        
+        // get selected index
+        
+        int index = newMol.getSelectedIndex();
+        // index molecules
+        
+        ArrayList<Molecule> mols = gui.getProject().getMolecules();
+        
+        Molecule newCurrentMol = mols.get(index);
+        
+        gui.getProject().setCurrentMol(newCurrentMol);
+        
+        gui.refresh();
+        
+        this.dispose();
+        
+        
+        
+        
+    }//GEN-LAST:event_submitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -80,5 +167,10 @@ public class ChangeMolecule extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel infoWrapper;
+    private javax.swing.JLabel lblMol;
+    private javax.swing.JComboBox newMol;
+    private javax.swing.JButton submit;
+    private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 }

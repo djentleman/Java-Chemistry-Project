@@ -47,6 +47,10 @@ public class GUI extends javax.swing.JFrame {
         this.project = newProject;
         refresh();
     }
+    
+    public Project getProject(){
+        return project;
+    }
 
     public void addToMol(Atom atom, String bondType) {
         if (bondType.equals("Covalent")) {
@@ -101,9 +105,10 @@ public class GUI extends javax.swing.JFrame {
 
     }
 
-    private void refresh() {
+    public void refresh() {
         // update molecule
         // refreshes all
+        // public; can be accessed externally
         this.remove(render);
         render = new Render(project.getCurrentMol(), renderType);
         this.add(render);
